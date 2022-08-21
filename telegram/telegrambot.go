@@ -114,9 +114,7 @@ func Updates(buf *chan *user.User, userMap *map[int64]*user.User) (err error) {
 				}
 			}
 			uptime := utils.FormatTime(time.Since(start))
-			_, _ = usr.SendMessage(fmt.Sprintf("							   Bot %s\nUsers: (%d/%d) \nUptime: %s", C.Version, todayUser, len(*userMap), uptime), false)
-
-		default:
+			_, _ = usr.SendMessage(fmt.Sprintf("StairUnlocker Bot %s\nUsers: (%d/%d) \nUptime: %s", C.Version, todayUser, len(*userMap), uptime), false)
 			_, _ = usr.SendMessage("无效命令", false)
 		}
 		log.Debugln("Telegram Bot: [ID: %d], Text: %s", update.Message.From.ID, update.Message.Text)
