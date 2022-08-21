@@ -72,19 +72,19 @@ func Updates(buf *chan *user.User, userMap *map[int64]*user.User) (err error) {
 
 		case update.Message.Text == "/stat":
 			if usr.Data.CheckInfo == "" {
-				_, _ = usr.SendMessage("Cannot find status information. Please use [/url subURL] command once.", false)
+				_, _ = usr.SendMessage("找不到状态信息。 请使用[/url subURL]命令一次。", false)
 			} else {
 				_, _ = usr.SendMessage((*userMap)[usr.ID].Data.CheckInfo, false)
 			}
 
 		case strings.HasPrefix(update.Message.Text, "/url") || strings.HasPrefix(update.Message.Text, "/ip"):
 			if len(*buf) > config.BotCfg.MaxOnline {
-				_, _ = usr.SendMessage("Too many connections, Please try again later.", false)
+				_, _ = usr.SendMessage("连接太多，请稍后再试.", false)
 				continue
 			}
 			// forbid double-checking
 			if usr.IsCheck {
-				_, _ = usr.SendMessage("Duplication, Previous testing is not completed! Please try again later.", false)
+				_, _ = usr.SendMessage("之前的测试没有完成！ 请稍后再试.", false)
 				continue
 			}
 
@@ -93,7 +93,7 @@ func Updates(buf *chan *user.User, userMap *map[int64]*user.User) (err error) {
 				trimStr := strings.TrimSpace(strings.ReplaceAll(update.Message.Text, "/url", ""))
 				subURL, err = url.Parse(trimStr)
 				if err != nil || (usr.Data.SubURL == "" && trimStr == "") || (subURL.Scheme == "" && trimStr != "") {
-					_, _ = usr.SendMessage("Invalid URL. Please inspect your subURL or use [/url subURL] command once.", false)
+					_, _ = usr.SendMessage("无效的网址。 请检查您的 subURL 或使用[/url subURL]命令一次。", false)
 				} else if usr.UserOutInternal(config.BotCfg.Internal) {
 					if trimStr != "" {
 						usr.Data.SubURL = subURL.String()
@@ -117,7 +117,7 @@ func Updates(buf *chan *user.User, userMap *map[int64]*user.User) (err error) {
 			_, _ = usr.SendMessage(fmt.Sprintf("StairUnlocker Bot %s\nUsers: (%d/%d) \nUptime: %s", C.Version, todayUser, len(*userMap), uptime), false)
 
 		default:
-			_, _ = usr.SendMessage("Invalid command", false)
+			_, _ = usr.SendMessage("无效命令", false)
 		}
 		log.Debugln("Telegram Bot: [ID: %d], Text: %s", update.Message.From.ID, update.Message.Text)
 	}
