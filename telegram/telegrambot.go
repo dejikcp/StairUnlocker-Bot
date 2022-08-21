@@ -28,10 +28,10 @@ func Updates(buf *chan *user.User, userMap *map[int64]*user.User) (err error) {
 	// initial command list
 	preCommands, _ := bot.GetMyCommands()
 	currCommands := []tgBot.BotCommand{
-		{"url", "Get nodes unlock status."},
-		{"ip", "Get Real IP information."},
-		{"stat", "Show the latest checking result."},
-		{"version", "Show version."},
+		{"url", "获取节点解锁状态。"},
+		{"ip", "获取真实 IP 信息。"},
+		{"stat", "显示最新的检查结果。"},
+		{"version", "显示版本。"},
 	}
 	if fmt.Sprint(preCommands) != fmt.Sprint(currCommands) {
 		_, err = bot.Request(tgBot.SetMyCommandsConfig{Commands: currCommands})
