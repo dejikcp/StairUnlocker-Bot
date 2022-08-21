@@ -67,7 +67,7 @@ func Updates(buf *chan *user.User, userMap *map[int64]*user.User) (err error) {
 			for i := range cmdList {
 				str += fmt.Sprintf("/%s - %s\n", cmdList[i].Command, cmdList[i].Description)
 			}
-			str += "Once used, the bot will use latest subURL for testing."
+			str += "使用后，机器人将使用最新的子 URL 进行测试。"
 			_, _ = usr.SendMessage(str, false)
 
 		case update.Message.Text == "/stat":
@@ -114,7 +114,7 @@ func Updates(buf *chan *user.User, userMap *map[int64]*user.User) (err error) {
 				}
 			}
 			uptime := utils.FormatTime(time.Since(start))
-			_, _ = usr.SendMessage(fmt.Sprintf("StairUnlocker Bot %s\nUsers: (%d/%d) \nUptime: %s", C.Version, todayUser, len(*userMap), uptime), false)
+			_, _ = usr.SendMessage(fmt.Sprintf("							   Bot %s\nUsers: (%d/%d) \nUptime: %s", C.Version, todayUser, len(*userMap), uptime), false)
 
 		default:
 			_, _ = usr.SendMessage("无效命令", false)
